@@ -13,7 +13,7 @@ def nameToAnchor(name):
         return res
     except AttributeError:
         nameToAnchor.nameDict = {}
-        nameToAnchor.symbolPattern = re.compile(r"[^a-zA-Z0-9\s]")
+        nameToAnchor.symbolPattern = re.compile(r"[^a-zA-Z0-9_\-\s]")
         return nameToAnchor(name)
 
 
