@@ -40,10 +40,13 @@ with open(f"{className}.md", "w") as f:
     f.write("\n\n")
     f.write("# Table of contents\n")
     writeTableItem(f, f"Class: {className}", 0)
+
     constructorArgs = input("Enter constructor args: ")
     writeTableItem(f, f"Constructor({constructorArgs})", 1)
+
     properties = {"Public": [], "Protected": [], "Private": []}
     methods = {"Public": [], "Protected": [], "Private": []}
+
     for scope in properties:
         print(f"{scope} properties:")
         while True:
@@ -51,6 +54,7 @@ with open(f"{className}.md", "w") as f:
             if name == "":
                 break
             properties[scope].append(name)
+
     for scope in methods:
         print(f"{scope} methods:")
         while True:
@@ -58,41 +62,50 @@ with open(f"{className}.md", "w") as f:
             if name == "":
                 break
             methods[scope].append(name)
+
     writeTableItem(f, "Properties", 1)
     for scope in properties:
         if len(properties[scope]) > 0:
             writeTableItem(f, scope, 2)
             for field in properties[scope]:
                 writeTableItem(f, field, 3)
+
     writeTableItem(f, "Methods", 1)
     for scope in methods:
         if len(methods[scope]) > 0:
             writeTableItem(f, scope, 2)
             for field in methods[scope]:
                 writeTableItem(f, field, 3)
+
     writeTableItem(f, "Source", 1)
     f.write("\n")
+
     writeHeader(f, f"Class: {className}", 0)
     writeHeader(f, f"Constructor({constructorArgs})", 1)
     f.write("\n")
+
     writeHeader(f, "Properties", 1)
-    for index in range(3):
-        scope = [*properties][index]
+    shouldAddLine = False
+    for scope in properties:
         if len(properties[scope]) > 0:
-            if index > 0:
+            if shouldAddLine:
                 f.write("\n")
+            shouldAddLine = True
             writeHeader(f, scope, 2)
             for field in properties[scope]:
                 writeHeader(f, field, 3)
     f.write("\n")
+
     writeHeader(f, "Methods", 1)
-    for index in range(3):
-        scope = [*methods][index]
+    shouldAddLine = False
+    for scope in methods:
         if len(methods[scope]) > 0:
-            if index > 0:
+            if shouldAddLine:
                 f.write("\n")
+            shouldAddLine = True
             writeHeader(f, scope, 2)
             for field in methods[scope]:
                 writeHeader(f, field, 3)
     f.write("\n")
+
     writeHeader(f, "Source", 1)
